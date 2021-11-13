@@ -24,25 +24,23 @@ services:
       - 80:80
 
   django_container_gunicorn:
-    image: <본인이 만든 도커파일 이름:이미지번호>
+    image: jochiwon_image:1
     networks:
       - network
     volumes:
-      - static-volume:/home/<본인 깃허브 레포이름>/staticfiles
-      - media-volume:/home/<본인 깃허브 레포이름>/media
-    secrets:
-      - MYSQL_PASSWORD
-      - DJANGO_SECRET_KEY
-
+      - static-volume:/home/jochiwon_final/staticfiles
+      - media-volume:/home/jochiwon_final/media
   mariadb:
     image: mariadb:10.5
     networks:
       - network
     volumes:
       - maria-database:/var/lib/mysql
-    secrets:
-      - MARIADB_PASSWORD
-      - MARIADB_ROOT_PASSWORD
+    enviroment:
+      MARIADB_PASSWORD: password1234
+      MARIADB_ROOT_PASSWORD: django
+      MYSQL_PASSWORD: django
+      DJANGO_SECRET_KEY: password1234
 
 
 networks:
